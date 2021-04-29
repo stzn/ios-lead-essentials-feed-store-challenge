@@ -38,15 +38,7 @@ public final class CoreDataFeedStore: FeedStore {
 					completion(.empty)
 					return
 				}
-				let feed = cache.feed.compactMap { feed -> LocalFeedImage? in
-					guard let managed = feed as? ManagedFeedImage else {
-						return nil
-					}
-					return LocalFeedImage(id: managed.id,
-					                      description: managed.imageDescription,
-					                      location: managed.location,
-					                      url: managed.url)
-				}
+				let feed = cache.feed.compactMap { ($0 as? ManagedFeedImage)?.local }
 				completion(.found(feed: feed, timestamp: cache.timestamp))
 			} catch {}
 		}
