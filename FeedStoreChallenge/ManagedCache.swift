@@ -21,7 +21,7 @@ extension ManagedCache {
 		return try context.fetch(request).first
 	}
 
-	static func deleteCache(in context: NSManagedObjectContext) throws {
+	private static func deleteCache(in context: NSManagedObjectContext) throws {
 		try find(in: context).map(context.delete).map(context.save)
 	}
 
