@@ -32,9 +32,7 @@ public final class CoreDataFeedStore: FeedStore {
 		let context = self.context
 		context.perform {
 			do {
-				let request = NSFetchRequest<ManagedCache>(entityName: ManagedCache.entity().name!)
-				request.returnsObjectsAsFaults = false
-				guard let cache = try context.fetch(request).first else {
+				guard let cache = try ManagedCache.find(in: context) else {
 					completion(.empty)
 					return
 				}
