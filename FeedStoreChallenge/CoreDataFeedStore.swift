@@ -38,7 +38,9 @@ public final class CoreDataFeedStore: FeedStore {
 				}
 				let feed = cache.feed.compactMap { ($0 as? ManagedFeedImage)?.local }
 				completion(.found(feed: feed, timestamp: cache.timestamp))
-			} catch {}
+			} catch {
+				completion(.failure(error))
+			}
 		}
 	}
 
