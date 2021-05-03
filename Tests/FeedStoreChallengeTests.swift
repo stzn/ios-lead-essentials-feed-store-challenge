@@ -3,7 +3,7 @@
 //
 
 import XCTest
-import FeedStoreChallenge
+@testable import FeedStoreChallenge
 
 class FeedStoreChallengeTests: XCTestCase, FailableFeedStoreSpecs {
 	//  ***********************
