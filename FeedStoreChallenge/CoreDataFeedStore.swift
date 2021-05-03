@@ -67,8 +67,10 @@ extension CoreDataFeedStore: FeedStore {
 		let context = self.context
 		context.perform {
 			do {
-				try ManagedCache.find(in: context).map(context.delete)
-				try context.save()
+				if let cache = try ManagedCache.find(in: context) {
+					context.delete(cache)
+					try context.save()
+				}
 				completion(nil)
 			} catch {
 				context.rollback()
