@@ -4,7 +4,7 @@
 
 import CoreData
 
-final class CoreDataFeedStore {
+final class CoreDataFeedStore: FeedStore {
 	private static let modelName = "FeedStore"
 	private static let model = NSManagedObjectModel(name: modelName, in: Bundle(for: CoreDataFeedStore.self))
 
@@ -27,9 +27,7 @@ final class CoreDataFeedStore {
 		)
 		context = container.newBackgroundContext()
 	}
-}
 
-extension CoreDataFeedStore: FeedStore {
 	func retrieve(completion: @escaping RetrievalCompletion) {
 		let context = self.context
 		context.perform {
