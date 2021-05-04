@@ -4,7 +4,7 @@
 
 import CoreData
 
-final class CoreDataFeedStore: FeedStore {
+public final class CoreDataFeedStore: FeedStore {
 	private static let modelName = "FeedStore"
 	private static let model = NSManagedObjectModel(name: modelName, in: Bundle(for: CoreDataFeedStore.self))
 
@@ -15,7 +15,7 @@ final class CoreDataFeedStore: FeedStore {
 		let modelName: String
 	}
 
-	init(storeURL: URL) throws {
+	public init(storeURL: URL) throws {
 		guard let model = CoreDataFeedStore.model else {
 			throw ModelNotFound(modelName: CoreDataFeedStore.modelName)
 		}
@@ -28,7 +28,7 @@ final class CoreDataFeedStore: FeedStore {
 		context = container.newBackgroundContext()
 	}
 
-	func retrieve(completion: @escaping RetrievalCompletion) {
+	public func retrieve(completion: @escaping RetrievalCompletion) {
 		context.perform { [context] in
 			do {
 				guard let cache = try ManagedCache.find(in: context) else {
@@ -43,7 +43,7 @@ final class CoreDataFeedStore: FeedStore {
 		}
 	}
 
-	func insert(_ feed: [LocalFeedImage], timestamp: Date, completion: @escaping InsertionCompletion) {
+	public func insert(_ feed: [LocalFeedImage], timestamp: Date, completion: @escaping InsertionCompletion) {
 		context.perform { [context] in
 			do {
 				let newCache = try ManagedCache.newUniqueInstance(in: context)
@@ -59,7 +59,7 @@ final class CoreDataFeedStore: FeedStore {
 		}
 	}
 
-	func deleteCachedFeed(completion: @escaping DeletionCompletion) {
+	public func deleteCachedFeed(completion: @escaping DeletionCompletion) {
 		context.perform { [context] in
 			do {
 				if let cache = try ManagedCache.find(in: context) {
